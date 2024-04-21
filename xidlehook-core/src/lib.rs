@@ -521,6 +521,7 @@ where
     /// Runs a standard poll-sleep-repeat loop... asynchronously.
     #[cfg(any(feature = "async-std", feature = "tokio"))]
     pub async fn main_async(&mut self, xcb: &self::modules::Xcb) -> Result<()> {
+        self.reset(xcb.get_idle()?)?;
         loop {
             let idle = xcb.get_idle()?;
             match self.poll(idle)? {
